@@ -30,15 +30,18 @@ To address the "Undefined array key" warning, we'll navigate to the specific fil
    
 - Examine the code at that line, and if it matches the problematic code snippet, replace it with the following corrected code:
 
-   ```php
-// Bail early if an image has been inserted and later edited.
-if ( preg_match( '/-e[0-9]{13}/', $image_meta['file'], $img_edit_hash )
-    && strpos( wp_basename( $image_src ), $img_edit_hash[0] ) === false
+```php
+// Bail early if $image_meta['file'] is not set or an image has been inserted and later edited.
+if ( isset( $image_meta['file'] )
+&& preg_match( '/-e[0-9]{13}/', $image_meta['file'], $img_edit_hash )
+&& strpos( wp_basename( $image_src ), $img_edit_hash[0] ) === false
 ) {
-    return $image;
+return $image;
 }
-//
--Make sure to save the changes after replacing the code. This adjustment aims to resolve the issue related to the undefined array key. After completing this step, check if the warning persists on your WordPress website.
+```
+
+- Make sure to save the changes after replacing the code. This adjustment aims to resolve the issue related to the undefined array key. After completing this step, check if the warning persists on your WordPress website.
+
     ![image](https://github.com/Maimoona-Qasmi-3/Troubleshooting-resolved/assets/96918798/3258b80f-873e-4b0d-bc69-64cd63268af1)
 
 ### Conclusion and Next Steps
